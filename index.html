@@ -1814,7 +1814,10 @@ footer{text-align:center;font-size:11px;color:#aaa;padding:16px 20px;line-height
   }
   function fmtTime(v) {
     if (!v) return '';
-    return String(v).replace('T', ' ').slice(5, 16);
+    var d = new Date(v);
+    if (isNaN(d.getTime())) return String(v).replace('T', ' ').slice(5, 16);
+    var p = function (n) { return (n < 10 ? '0' : '') + n; };
+    return p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
   }
   function paint() {
     var cards = document.querySelectorAll('.card[data-code]');
